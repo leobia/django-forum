@@ -34,7 +34,7 @@ class Post(models.Model):
     discussione = models.ForeignKey(Discussione, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.autore_post
+        return self.autore_post.username
 
     class Meta:
         verbose_name = "Post"
