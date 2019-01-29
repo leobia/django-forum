@@ -9,6 +9,13 @@
         <h3>{{ sezione.nome_sezione }}</h3>
         <h6 class="card-text">{{ sezione.descrizione }}</h6>
     </div>
-</div>
 
+    <div class="card-body">
+        {% for discussione in discussioni %}
+            <h6><a href="{{ discussione.get_absolute_url }}">{{ discussione.titolo }}</a></h6>
+            <p class="caption">{{ discussione.autore_discussione }}</p>
+            <hr>
+        {% endfor %}
+    </div>
+</div>
 {% endblock content %}

@@ -30,6 +30,9 @@ class Discussione(models.Model):
     class Meta:
         verbose_name = "Discussione"
         verbose_name_plural = "Discussioni"
+    
+    def get_absolute_url(self):
+        return reverse("visualizza_discussione_view", kwargs={"pk": self.pk})
 
 class Post(models.Model):
     autore_post = models.ForeignKey(User, on_delete=models.CASCADE, related_name="posts")
