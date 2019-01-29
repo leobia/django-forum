@@ -4,8 +4,9 @@ from django.views.generic.edit import CreateView
 # Create your views here.
 from .models import Discussione, Post, Sezione
 from .mixins import StaffMixing
-from .forms import DiscussioneModelForm
-from django.http import HttpResponseRedirect
+from .forms import DiscussioneModelForm, PostModelForm
+from django.http import HttpResponseRedirect, HttpResponseBadRequest
+from django.urls import reverse
 
 class CreaSezione(StaffMixing, CreateView):
     model = Sezione
@@ -19,6 +20,7 @@ def visualizzaSezione(request, pk):
     discussioni_sezione = Discussione.objects.filter(sezione_appartenenza=sezione).order_by("-data_creazione")
     context = {"sezione": sezione, "discussioni": discussioni_sezione}
     return render(request, "forum/singola_sezione.html", context)
+
 
 @login_required
 def creaDiscussione(request, pk):
@@ -40,9 +42,27 @@ def creaDiscussione(request, pk):
     context = {"form": form, "sezione": sezione}
     return render(request, "forum/crea_discussione.html", context)
 
+
 def visualizzaDiscussione(request, pk):
     discussione = get_object_or_404(Discussione, pk=pk)
     posts_discussione = Post.objects.filter(discussione=discussione)
-    context = {"discussione": discussione, "posts_discussione": posts_discussione}
+    form_risposta = PostModelForm()
+    context = {"discussione": discussione, 
+                "posts_discussione": posts_discussione,
+                "form_risposta":form_risposta}
     return render(request, "forum/singola_discussione.html", context)
 
+
+def aggiungiRisposta(request, pk):
+    discussione = get_object_or_404(Discussione, pk=pk)
+    if request.method == "POST":
+        form = PostModelForm(request.POST)
+        if form.is_valid():
+            form.save(commit=False)
+            form.instance.discussione = discussione
+            form.instance.autore_post = request.user
+            form.save()
+            url_discussione = reverse("visualizza_discussione_view", kwargs={"pk": pk})
+            return HttpResponseRedirect(url_discussione)
+    else:
+        return HttpResponseBadRequest()
