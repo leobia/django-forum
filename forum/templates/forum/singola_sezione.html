@@ -5,9 +5,11 @@
 {% block content %}
 
 <div class="card my-3">
-    <div class="card-header">
+    <div class="card-header bg-light">
         <h3>{{ sezione.nome_sezione }}</h3>
         <h6 class="card-text">{{ sezione.descrizione }}</h6>
+        <br>
+        <a class="btn btn-sm" href="{% url 'crea_discussione' pk=sezione.pk %}">Crea Discussione</a>
     </div>
 
     <div class="card-body">
