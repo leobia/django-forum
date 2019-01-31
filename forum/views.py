@@ -53,6 +53,7 @@ def visualizzaDiscussione(request, pk):
     return render(request, "forum/singola_discussione.html", context)
 
 
+@login_required
 def aggiungiRisposta(request, pk):
     discussione = get_object_or_404(Discussione, pk=pk)
     if request.method == "POST":

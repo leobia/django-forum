@@ -22,5 +22,12 @@
 
     {% endfor %}
     
-    {% include 'forum/form_risposta.html' %}
+    {% if request.user.is_authenticated %}
+        {% include 'forum/form_risposta.html' %}
+    {% else %}
+        <br>
+        <div class="alert alert-warning" role="alert">
+            Devi effettuare il <a href="{% url 'login' %}?next={{ request.get_full_path }}">login</a> per aggiungere una risposta!
+        </div>
+    {% endif %}
 {% endblock content %}
