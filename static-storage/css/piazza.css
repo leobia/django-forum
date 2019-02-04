@@ -19,3 +19,7 @@ h6,
 .data_post {
     font-size: 70%;
 }
+
+#img-sezione {
+    max-width: 100%;
+}
