@@ -16,7 +16,7 @@ class Sezione(models.Model):
         verbose_name_plural = "Sezioni"
 
     def get_last_discussions(self):
-        return Discussione.objects.filter(sezione_appartenenza=self).order_by("data_creazione")[:2]
+        return Discussione.objects.filter(sezione_appartenenza=self).order_by("-data_creazione")[:2]
     
     def get_number_of_posts_in_section(self):
         return Post.objects.filter(discussione__sezione_appartenenza=self).count()
