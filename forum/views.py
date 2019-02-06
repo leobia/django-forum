@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404
+from django.core.paginator import Paginator #, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import CreateView
 # Create your views here.
@@ -46,10 +47,16 @@ def creaDiscussione(request, pk):
 def visualizzaDiscussione(request, pk):
     discussione = get_object_or_404(Discussione, pk=pk)
     posts_discussione = Post.objects.filter(discussione=discussione)
+
+    paginator = Paginator(posts_discussione, 5)
+    page = request.GET.get("pagina")
+    posts = paginator.get_page(page)
+
     form_risposta = PostModelForm()
     context = {"discussione": discussione, 
-                "posts_discussione": posts_discussione,
-                "form_risposta":form_risposta}
+                "posts_discussione": posts,
+                "form_risposta":form_risposta,
+                "numero_pagine": range(paginator.num_pages)}
     return render(request, "forum/singola_discussione.html", context)
 
 
