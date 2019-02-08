@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
+{% load static %}
 
 {% block head_title %}{{ block.super }} | {{ discussione.titolo}}{% endblock head_title %}
 
@@ -39,7 +40,7 @@
     {% endfor %}
     
     <nav id="paginatorId" aria-label="Page navigation">
-        <ul class="pagination">
+        <ul class="pagination justify-content-end">
         {% if posts_discussione.has_previous %}
             <li class="page-item"><a class="page-link" href="?pagina={{ posts_discussione.previous_page_number }}">Precedente</a></li>
         {% else %}
@@ -96,18 +97,27 @@
 
 
     <script>
-            // Add active class to the current button (highlight it)
-            var header = document.getElementById("paginatorId");
-            var btns = header.getElementsByClassName("page-item");
-            var page = window.location.href.substr(window.location.href.indexOf('=') + 1, window.location.href.length)
-            for (var i = 0; i < btns.length; i++) {
-              if (btns[i].textContent == page) {
-                  btns[i].className += " active"
-              } else {
-                  if (btns[i].className.includes("active")) {
-                    btns[i].className.replace("active", "");
-                  }
-              }
+        var nav = document.getElementById("paginatorId");
+        var bottoniPaginazione = nav.getElementsByClassName("page-item");
+        var indexEqual = window.location.href.indexOf('=');
+        var numeroPagina = '';
+        if(indexEqual != '-1') {
+            numeroPagina = window.location.href.substr(window.location.href.indexOf('=') + 1, window.location.href.length);
+        }
+        console.log(numeroPagina == '');
+        for (var i = 0; i < bottoniPaginazione.length; i++) {
+            console.log(bottoniPaginazione[i]);
+            if (numeroPagina == '' && bottoniPaginazione.length >= 1) {
+                bottoniPaginazione[1].className += " active"
             }
+            if (bottoniPaginazione[i].textContent == numeroPagina) {
+                bottoniPaginazione[i].className += " active";
+            } else {
+                if (bottoniPaginazione[i].className.includes("active")) {
+                    bottoniPaginazione[i].className.replace("active", "");
+                }
+            }
+        }
     </script>
+
 {% endblock content %}
