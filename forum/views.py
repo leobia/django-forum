@@ -70,7 +70,13 @@ def aggiungiRisposta(request, pk):
             form.instance.discussione = discussione
             form.instance.autore_post = request.user
             form.save()
+            
             url_discussione = reverse("visualizza_discussione_view", kwargs={"pk": pk})
+            pagine_in_discussione = discussione.get_n_pages()
+            if pagine_in_discussione > 1:
+                success_url = url_discussione + "?pagina=" + str(pagine_in_discussione)
+                return HttpResponseRedirect(success_url)
+
             return HttpResponseRedirect(url_discussione)
     else:
         return HttpResponseBadRequest()
