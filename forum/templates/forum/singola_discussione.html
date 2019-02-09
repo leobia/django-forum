@@ -15,8 +15,18 @@
                 <br>in: {{ discussione.sezione_appartenenza }}</p>
             </div>
         {% else %}
-        <div class="card-header bg-light py-0">
-            <p class="text-muted data_post mb-0">{{ post.data_creazione|date:"d M Y" }}</p>
+        <div class="d-flex card-header bg-light py-0">
+            <div class="mr-auto px-2 align-self-center">
+                <p class="text-muted data_post mb-0">{{ post.data_creazione|date:"d M Y" }}
+                </p>
+            </div>
+
+            <div class="px-2" >
+                {% if request.user == post.autore_post %}
+                    <a style="color: #B00020; font-size: 1.5em" href="{% url 'cancella_post' id=discussione.pk pk=post.pk %}" class="fas fa-trash-alt mt-1"></a>
+                {% endif %}
+            </div>
+
         </div>
         {% endif %}
             <div class="card-body">

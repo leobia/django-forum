@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator #, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, DeleteView
 # Create your views here.
 from .models import Discussione, Post, Sezione
 from .mixins import StaffMixing
@@ -80,3 +80,11 @@ def aggiungiRisposta(request, pk):
             return HttpResponseRedirect(url_discussione)
     else:
         return HttpResponseBadRequest()
+
+class CancellaPost(DeleteView):
+    model = Post
+    success_url = "/"
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        return queryset.filter(autore_post_id=self.request.user.id)
