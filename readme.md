@@ -62,3 +62,8 @@ Le funzioni principali dell'applicazione sono:
 Sotto lascio una gif che presenta il sito.
 
 ![enter image description here](https://media.giphy.com/media/2uInXPOQ0Yt1tJMTeM/giphy.gif)
+
+
+## Obiettivi futuri
+
+Ci sono molte funzionalità che potrebbero essere implementate per migliorare il sito, ma più che aggiungere funzionalità avevo l'obiettivo di fare un restyle al sito applicando le linee guida del material design di google (che ho cercato di applicare in alcuni punti, tipo la scelta dei diversi font).
