@@ -1,6 +1,6 @@
 # Benvenuti in Piazza!
 
-Ciao! Piazza è un progetto personale realizzato da me (Leonardo Bianco). Ho sviluppato questo progetto con l'intenzione di continuare ad imparare la tecnologia django (python) iniziata col progetto Libreria (sempre all'interno del mio gitlab).
+Ciao! Piazza è un progetto personale realizzato da me (Leonardo Bianco). Ho sviluppato questo progetto con l'intenzione di continuare ad imparare la tecnologia django (python) iniziata col progetto Libreria (sempre all'interno dei miei repos).
 
 
 ## Tecnologie utilizzate
